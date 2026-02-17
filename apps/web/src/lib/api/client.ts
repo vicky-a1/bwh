@@ -29,6 +29,7 @@ export type ApiMode = "mock" | "http";
 export function getApiMode(): ApiMode {
   const raw = process.env.NEXT_PUBLIC_API_MODE;
   if (raw === "http") return "http";
+  if (raw === "mock") return "mock";
+  if (process.env.NODE_ENV === "production") return "http";
   return "mock";
 }
-

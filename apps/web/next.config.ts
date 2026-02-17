@@ -4,6 +4,15 @@ import nextPwa from "@ducanh2912/next-pwa";
 
 const baseConfig: NextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    const apiOrigin = process.env.API_INTERNAL_ORIGIN ?? "http://localhost:3000";
+    return [
+      {
+        source: "/api/v1/:path*",
+        destination: `${apiOrigin}/api/v1/:path*`,
+      },
+    ];
+  },
 };
 
 export default function nextConfig(phase: string): NextConfig {

@@ -33,7 +33,11 @@ export class DroneEntity {
   @Column({ name: 'firmware_version', default: '' })
   firmwareVersion!: string;
 
-  @Column({ name: 'last_seen_at', type: 'timestamptz', nullable: true })
+  @Column({
+    name: 'last_seen_at',
+    type: process.env.NODE_ENV === 'test' ? 'datetime' : 'timestamptz',
+    nullable: true,
+  })
   lastSeenAt!: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })

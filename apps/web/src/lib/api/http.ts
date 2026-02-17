@@ -16,7 +16,9 @@ type FetchOptions = {
 };
 
 function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3000/api/v1";
+  const configured = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (configured) return configured.replace(/\/$/, "");
+  return "/api/v1";
 }
 
 function getToken() {
@@ -106,4 +108,3 @@ export function createHttpApiClient(): ApiClient {
     },
   };
 }
-

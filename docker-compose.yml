@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: bwh
+      POSTGRES_USER: bwh
+      POSTGRES_PASSWORD: bwh
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      WEB_ORIGIN: http://localhost:3001
+      JWT_SECRET: dev_change_me
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: bwh
+      DB_PASSWORD: bwh
+      DB_NAME: bwh
+      DB_SYNC: "false"
+      DB_RUN_MIGRATIONS: "true"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - mqtt
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:3000/api/v1
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

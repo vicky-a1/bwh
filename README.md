@@ -24,8 +24,8 @@ npm install
 ```
 
 Environment variables:
-- API: copy [apps/api/.env.example](file:///c:/Users/Lenovo/OneDrive%20-%20Karnataka%20Digital%20Economy%20mission/Desktop/bwh/apps/api/.env.example) to `apps/api/.env` and edit as needed
-- Web: copy [apps/web/.env.example](file:///c:/Users/Lenovo/OneDrive%20-%20Karnataka%20Digital%20Economy%20mission/Desktop/bwh/apps/web/.env.example) to `apps/web/.env.local` and edit as needed
+- API: copy [apps/api/.env.example](apps/api/.env.example) to `apps/api/.env` and edit as needed
+- Web: copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env.local` and edit as needed
 
 ## Run (Dev)
 
@@ -35,8 +35,9 @@ Run both apps:
 npm run dev
 ```
 
-- Web: http://localhost:3001
-- API: http://localhost:3000
+In your terminal you’ll see the exact URLs. By default the ports are:
+- Web: `http://<your-host>:3001`
+- API: `http://<your-host>:3000`
 
 Or run individually:
 
@@ -57,7 +58,7 @@ npm run typecheck
 
 ## Frontend Dashboard Usage
 
-- Open the dashboard at: `http://localhost:3001/dashboard`
+- Open the dashboard at: `<your web URL>/dashboard` (example: `http://<your-host>:3001/dashboard`)
 - Choose connection mode:
   - Simulator: runs a built-in telemetry simulator
   - Real drone: connects to a WebSocket URL you provide in the UI (or `NEXT_PUBLIC_DRONE_WS_URL`)
@@ -81,11 +82,11 @@ There are two common integration options:
   - `telemetry:subscribe` (dashboard subscribes per droneId)
   - `telemetry:update` (server broadcasts latest frames)
 
-See the implementation in [telemetry.gateway.ts](file:///c:/Users/Lenovo/OneDrive%20-%20Karnataka%20Digital%20Economy%20mission/Desktop/bwh/apps/api/src/modules/telemetry/telemetry.gateway.ts).
+See the implementation in [telemetry.gateway.ts](apps/api/src/modules/telemetry/telemetry.gateway.ts).
 
 ## ESP32 Telemetry Protocol (JSON)
 
-The web dashboard’s native telemetry frame shape is defined in [types.ts](file:///c:/Users/Lenovo/OneDrive%20-%20Karnataka%20Digital%20Economy%20mission/Desktop/bwh/apps/web/src/lib/telemetry/types.ts).
+The web dashboard’s native telemetry frame shape is defined in [types.ts](apps/web/src/lib/telemetry/types.ts).
 
 ### Minimal fields (accepted by the dashboard)
 
@@ -144,4 +145,4 @@ To run Postgres + MQTT + API + Web using Docker:
 docker compose up --build
 ```
 
-This uses the defaults in [docker-compose.yml](file:///c:/Users/Lenovo/OneDrive%20-%20Karnataka%20Digital%20Economy%20mission/Desktop/bwh/docker-compose.yml).
+This uses the defaults in [docker-compose.yml](docker-compose.yml).
